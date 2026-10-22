@@ -1,0 +1,20 @@
+http:
+  host: "0.0.0.0"
+  port: 8080
+
+bacnet:
+  ip: "0.0.0.0"
+  port_start: 47808
+
+db_path: "bacnet_lab.db"
+log_level: "INFO"
+devices_dir: "config/devices"
+
+# BACnet → MQTT gateway (OFF by default). App logs a reminder when disabled.
+# Enable: mqtt.enabled: true  OR  env BACNET_LAB_MQTT_ENABLED=1 (+ broker must be up)
+mqtt:
+  enabled: false
+  broker_host: "localhost"
+  broker_port: 1883
+  topic_prefix: "bacnet"
+  subscribe_commands: true

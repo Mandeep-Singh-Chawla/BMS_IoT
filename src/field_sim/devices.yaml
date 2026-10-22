@@ -1,0 +1,42 @@
+# Portable field plant for QA: sensor + equipment.
+# Copy this folder to another project; edit points as needed.
+# Controller rules are in controller.py (not YAML).
+# bacnet.objects is used only when start_field_sim(bacnet=True).
+
+sensor:
+  device_id: 5001
+  name: OAT-01
+  points:
+    OAT-01/OutdoorTemp: 15.0
+  bacnet:
+    objects:
+      OAT-01/OutdoorTemp:
+        type: analogInput
+        instance: 1
+        units: degreesCelsius
+
+equipment:
+  device_id: 1001
+  name: AHU-01
+  points:
+    AHU-01/SupplyFanEnable: false
+    AHU-01/FanSpeed: 0.0
+    AHU-01/CoolingValve: 0.0
+    AHU-01/SupplyAirTempSetpoint: 22.0
+  bacnet:
+    objects:
+      AHU-01/CoolingValve:
+        type: analogOutput
+        instance: 1
+        units: percent
+      AHU-01/FanSpeed:
+        type: analogOutput
+        instance: 2
+        units: percent
+      AHU-01/SupplyAirTempSetpoint:
+        type: analogValue
+        instance: 1
+        units: degreesCelsius
+      AHU-01/SupplyFanEnable:
+        type: binaryOutput
+        instance: 1

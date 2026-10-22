@@ -5,10 +5,11 @@ Tests and a lab for a BMS / IoT app that uses BACnet and MQTT. Virtual HVAC poin
 ## What you need
 
 - macOS
-- Python 3.11 or newer
-- Docker Desktop, running (starts Mosquitto for MQTT tests)
+- Python 3.11 or newer (`python3` on macOS is often 3.9 — use `python3.11`)
+- Docker Desktop, **running** before you run pytest
 - Port 1883 free
 
+If Docker is not running, MQTT / E2E tests **error** (they do not skip).  
 BACnet/IP system tests are optional. They need extra UDP ports and `BAC0`. Most tests do not start BACnet devices.
 
 ## Setup
@@ -16,12 +17,12 @@ BACnet/IP system tests are optional. They need extra UDP ports and `BAC0`. Most 
 ```bash
 git clone https://github.com/Mandeep-Singh-Chawla/BMS_IoT.git
 cd BMS_IoT
-python3 -m venv .venv
+python3.11 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
-Or with `uv`:
+Or with `uv` (uses 3.11+ from `pyproject.toml`):
 
 ```bash
 uv sync --extra dev
@@ -29,11 +30,13 @@ uv sync --extra dev
 
 ## Run the tests
 
+Start Docker Desktop first, then:
+
 ```bash
 pytest tests -v
 ```
 
-You should see the default suite pass (BACnet/IP system tests stay skipped). Docker starts the MQTT broker for the gateway and E2E tests.
+You should see the default suite pass (about 58 passed, 3 skipped). The skips are BACnet/IP system tests only. Docker starts Mosquitto for the MQTT gateway and E2E tests.
 
 | Test | What it checks |
 |------|----------------|
